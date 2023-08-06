@@ -1,0 +1,120 @@
+.attribution { font-size: 11px; text-align: center; }
+.attribution a { color: hsl(228, 45%, 44%); }
+
+:root{
+    --dark-cyan: hsl(158, 36%, 37%);
+    --dark-cyan-hover: hsl(158, 36%, 20%);
+    --cream: hsl(30, 38%, 92%);   
+    --dark-blue: hsl(212, 21%, 14%);
+    --dark-grayish-blue: hsl(228, 12%, 48%);
+    --white: hsl(0, 0%, 100%);
+    --font-primary : 'Montserrat', serif;
+    --font-secondary : 'Fraunces', serif;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-family: var(--font-primary);
+}
+
+img{
+    width: 100%;
+}
+
+h1, h2, h3{
+    line-height: 1;
+}
+
+h1, p {
+    overflow-wrap: break-word;
+}
+
+body{
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    background-color: var(--cream);
+    color: var(--dark-grayish-blue);
+}
+
+main{
+    background-color: var(--white);
+    overflow: hidden;
+    border-radius: .5rem;
+}
+
+.product{
+    display: grid;
+    max-width: 600px;
+}
+
+.product_content{
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.product_category{
+    text-transform: uppercase;
+    letter-spacing: .25rem;
+}
+
+.product_title{
+    color: var(--dark-blue);
+    font-family: var(--font-secondary);
+    font-size: 2.2rem;
+}
+
+.product_prices{
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.product_price{
+    font-size: 2rem;
+    font-family: var(--font-secondary);
+    color: var(--dark-cyan);
+}
+
+.cart_icon{
+    width: 1.2rem;
+}
+
+.button{
+    padding: 1em 1.5em;
+    background-color: var(--dark-cyan);
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    outline: none;
+    color: var(--white);
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: .5em;
+    cursor: pointer;
+}
+
+.button:is(:hover, :focus){
+    background-color: var(--dark-cyan-hover);
+}
+
+@media only screen and (min-width: 500px){
+    .product{
+        grid-template-columns: 1fr 1fr;
+    }
+    .product_image > img{
+        height: 100%;
+    }
+    .product_content{
+        justify-content: space-evenly;
+    }
+}
