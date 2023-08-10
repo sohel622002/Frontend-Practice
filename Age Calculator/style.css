@@ -1,0 +1,148 @@
+:root{
+    --color-primary-purple : hsl(259, 100%, 65%);
+    --light-red : hsl(0, 100%, 67%);
+    --white : hsl(0, 0%, 100%);
+    --off-white :  hsl(0, 0%, 94%);
+    --light-grey : hsl(0, 0%, 86%);
+    --somkey-grey : hsl(0, 1%, 44%);
+    --off-black : hsla(0, 0%, 8%);
+
+    --p-font : 'Poppins', sans-serif;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--p-font);
+}
+
+body{
+    background-color: var(--off-white);
+    display: grid;
+    place-content: center;
+    min-height: 100vh;
+}
+
+main{
+    background-color: var(--white);
+    color: var(--off-black);
+    width: 600px;
+    padding: 2em;
+    border-radius: 20px 20px 100px 20px;
+}
+
+.age-inputs-container{
+    display: flex;
+    gap: 20px;
+    max-width: 440px;
+}
+
+.age-input{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.age-input > span{
+    font-size: 14px;
+    color: var(--somkey-grey);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.age-input > input{
+    padding: 5px 10px;
+    width: 100%;
+    margin-top: 7px;
+    font-size: 32px;
+    border: none;
+    outline: none;
+    border: 1px solid var(--light-grey);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.age-input > input:focus, 
+.age-input > input:hover{
+    border: 1px solid var(--color-primary-purple);
+}
+
+
+/* btn Container */
+
+.btn-container{
+    display: flex;
+    align-items: center;
+}
+
+.line-btn{
+    display: inline-block;
+    height: 1px;
+    width: 100%;
+    background-color: var(--light-grey);
+}
+
+.btn-container > img{
+    width: 70px;
+    padding: 15px;
+    border-radius: 50%;
+    background-color: var(--color-primary-purple);
+    cursor: pointer;
+}
+
+.btn-container > img:hover{
+    background-color: var(--off-black);
+}
+
+.year, .month, .day{
+    font-size: 65px;
+    font-style: italic;
+    font-weight: 900;
+}
+
+.age{
+    color: var(--color-primary-purple);
+}
+
+.age-input > .error{
+    display: none;
+    position: absolute;
+    width: max-content;
+    bottom: -23px;
+    padding: 5px;
+    text-transform: none;
+    font-size: 10px;
+    color: var(--light-red);
+}
+
+@media (max-width : 530px){
+    main{
+        max-width: 90vw;
+    }
+    .btn-container{
+        margin-top: 25px;
+        margin-bottom: 20px;
+        position: relative;
+        justify-content: center;
+    }
+    .age-input > span{
+        font-size: 12px;
+    }
+    .age-input > input{
+        font-size: 20px;
+    }
+    .btn-container > img{
+        width: 60px;
+        position: relative;
+        z-index: 5;
+    }
+    .year, .month, .day{
+        font-size: 45px;
+    }
+
+    .line-btn{
+        position: absolute;
+        z-index: 0;
+    }
+}

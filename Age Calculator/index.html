@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;1,400;1,800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Frontend Mentor | Age calculator app</title>
+    <style>
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="age-inputs-container">
+        <div class="age-input">
+          <span class="age-heading">Day</span>
+          <input
+            id="day-input"
+            type="text"
+            maxlength="2"
+            placeholder="DD"
+            spellcheck="false"
+          />
+          <span class="error"></span>
+        </div>
+        <div class="age-input">
+          <span class="age-heading"> Month </span>
+          <input
+            id="month-input"
+            type="text"
+            maxlength="2"
+            placeholder="MM"
+            spellcheck="false"
+          />
+          <span class="error"></span>
+        </div>
+        <div class="age-input">
+          <span class="age-heading"> Year</span>
+          <input
+            id="year-input"
+            type="text"
+            maxlength="4"
+            placeholder="YYYY"
+            spellcheck="false"
+          />
+          <span class="error"></span>
+        </div>
+      </div>
+      <div class="btn-container">
+        <span class="line-btn"></span>
+        <img
+          src="assets//images/icon-arrow.svg"
+          alt="arrow-icon"
+          class="arrow-btn"
+        />
+      </div>
+      <div class="age-output">
+        <div class="year">
+          <span data-year="--" class="age">--</span>
+          years
+        </div>
+        <div class="month">
+          <span data-month="--" class="age">--</span>
+          months
+        </div>
+        <div class="day">
+          <span data-day="--" class="age">--</span>
+          days
+        </div>
+      </div>
+    </main>
+
+    <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="#">Your Name Here</a>.
+    </div>
+
+    <script>
+      const button = document.querySelector(".arrow-btn");
+
+      function showerror(el, message, errorHeding) {
+        el.innerText = `${message}`;
+        el.style.display = "block";
+        errorHeding.style.color = "var(--light-red)";
+      }
+
+      function removeError(errorSpan, errorHeading) {
+        errorSpan.style.display = "none";
+        errorHeading.style.color = "var(--somkey-grey)";
+      }
+
+      button.addEventListener("click", () => {
+        const day = Number(document.querySelector("#day-input").value);
+        const month = Number(document.querySelector("#month-input").value);
+        const year = Number(document.querySelector("#year-input").value);
+        const ageInputs = Array.from(document.querySelectorAll(".age-input"));
+
+        const date = new Date();
+
+        const currentDay = date.getDate();
+        const currentMonth = date.getMonth() + 1;
+        const currentYear = date.getFullYear();
+
+        let yearsOld, monthsOld, daysOld;
+
+        let isvalid = false;
+
+        ageInputs.forEach((input, index) => {
+          let validation = false;
+          const inputValue = input.querySelector("input").value;
+          const errorSpan = input.querySelector(".error");
+          const heading = input.querySelector(".age-heading");
+
+          if (isNaN(inputValue)) {
+            showerror(errorSpan, "Must Be a Number !", heading);
+            return;
+          }
+
+          if (index === 0) {
+            if (inputValue) {
+              if (inputValue > 0 && inputValue < 32) {
+                isvalid = true;
+                removeError(errorSpan, heading);
+              } else {
+                isvalid = false;
+                showerror(errorSpan, "Must Be a Valid Number !", heading);
+              }
+            } else {
+              isvalid = false;
+              showerror(errorSpan, "This Feild is Required !", heading);
+            }
+          }
+
+          if (index === 1) {
+            if (inputValue) {
+              if (inputValue > 0 && inputValue < 13) {
+                isvalid = true;
+                removeError(errorSpan, heading);
+              } else {
+                isvalid = false;
+                showerror(errorSpan, "Must Be a Valid Number !", heading);
+              }
+            } else {
+              isvalid = false;
+              showerror(errorSpan, "This Feild is Required !", heading);
+            }
+          }
+
+          if (index === 2) {
+            if (inputValue) {
+              if (inputValue > 0 && inputValue < date.getFullYear()) {
+                isvalid = true;
+                removeError(errorSpan, heading);
+              } else {
+                isvalid = false;
+                showerror(errorSpan, "Must Be a Valid Number !", heading);
+              }
+            } else {
+              isvalid = false;
+              showerror(errorSpan, "This Feild is Required !", heading);
+            }
+          }
+        });
+
+        if (isvalid) {
+          yearsOld = currentYear - year;
+
+          if(currentMonth >= month){
+            monthsOld = currentMonth - month
+          }else{
+            yearsOld--
+            monthsOld = 12 + currentMonth - month
+          }
+
+          if(currentDay >= day){
+            daysOld = currentDay - day
+          }else{
+            let daysinmonths = new Date(year, month, 0).getDate()
+            monthsOld--
+            daysOld = daysinmonths + currentDay - day
+          }
+          if(monthsOld < 0){
+            monthsOld = 11
+            yearsOld--
+          }
+
+          console.log(yearsOld + "years", monthsOld + "Months", daysOld + "Days")
+
+          const displayYear = document.querySelector("[data-year]")
+          const displayMonth = document.querySelector("[data-month]")
+          const displayDay = document.querySelector("[data-day]")
+
+          if(yearsOld < 10){
+            displayYear.innerText = "0"+yearsOld
+            console.log(yearsOld)
+          }else{
+            displayYear.innerText = yearsOld
+          }
+
+          if(monthsOld < 10){
+            displayMonth.innerText = "0"+monthsOld
+          }else{
+            displayMonth.innerText = monthsOld
+          }
+
+          if(daysOld < 10){
+            displayDay.innerText = "0"+daysOld
+          }else{
+            displayDay.innerText = daysOld
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
